@@ -1,0 +1,5 @@
+Polimorfizm dynamiczny - możliwość wykonania jakiejś metody / wykorzystania pola klasy abstrakcyjnej na podstawie wskaźnika do dowolnego obiektu dziedziczącego po danej klasie abstrakcyjnej, nieznanego z poziomu kompilacji. Ważne jest, aby odpowiednia metoda była zaimplementowana w klasie potomnej.
+
+Polimorfizm statyczny - efekt podobny do ww., ale zamiast wskaźnika klasy abstrakcyjnej używamy szablonu.
+
+Klasa abstrakcyjna - klasa, której instancji nie można utworzyć, ponieważ część metod może być niezaimplementowana (metody wirtualne), należy je zaimplementować w klasie dziedziczącej.

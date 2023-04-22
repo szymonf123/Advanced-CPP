@@ -1,0 +1,71 @@
+#include <iostream>
+#include <array>
+#include <cstring>
+using  namespace std;
+
+template<typename T>  struct sum_traits;
+
+template<>  struct sum_traits<char> {
+    typedef int sum_type;
+    static sum_type zero(){
+        return 0;
+    }
+};
+template<>  struct sum_traits<int> {
+    typedef long int sum_type; 
+    static sum_type zero(){
+        return 0;
+    }
+};
+template<>  struct sum_traits<float> {
+    typedef double sum_type;
+    static sum_type zero(){
+        return 0.0;
+    }
+};
+template<>  struct sum_traits<double> {
+    typedef double sum_type;
+    static sum_type zero(){
+        return 0.0;
+    }
+};
+
+//template<typename IT> sum(IT *beg,IT *end);
+
+template<typename T> 
+typename sum_traits<T>::sum_type sum(T *start,T *stop) { 
+    typedef typename sum_traits<T>::sum_type sum_type;
+    sum_type result = sum_traits<T>::zero(); 
+    while(start != stop) { 
+        result += *start;
+        start++; 
+    } 
+    return result; 
+};
+
+template<typename IT> 
+typename sum_traits<typename iterator_traits<IT>::value_type>::sum_type sum(IT *beg, IT *end){ 
+    typedef typename iterator_traits<IT>::value_type value_type;
+    typedef typename sum_traits<value_type>::sum_type sum_type;
+    sum_type total = sum_traits<value_type>::zero(); 
+    while(beg != end) { 
+        total += *beg;
+        beg++; 
+    } 
+    return total; 
+}
+
+int main(){
+    array<int, 5> a1({2, 3, 18, -3, -5});
+    cout << "sum<int> = " << sum(a1.begin(), a1.end());
+
+    array<float, 3> a2({1.0/3, 1.0/3, 1.0/3});
+    cout << "\nsum<float> = " << sum(a2.begin(), a2.end());
+
+    array<double, 3> a3({3.33, 3.33, 3.333333});
+    cout << "\nsum<double> = " << sum(a3.begin(), a3.end());
+
+    char name[] = "@@@";
+    cout << "\nsum<char> = " << sum(name, &name[strlen(name)]);
+    return 0;
+}
